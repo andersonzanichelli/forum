@@ -1,0 +1,69 @@
+server:
+  port: 8080
+    
+spring:
+  profiles: default
+  devtools: 
+    livereload:
+      enabled: true
+  datasource:
+    url: jdbc:mysql://localhost/forum?useSSL=false
+    username: forum
+    password: forum
+    driverClassName: com.mysql.jdbc.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        physicalStrategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      
+    properties:
+      hibernate:
+        show-sql: true
+        use-sql-comments: true
+        format-sql: true
+  data:
+    rest:
+      base-path: /
+      default-page-size: 10
+      
+logging:
+  level:
+    com:
+      github:
+        andersonzanichelli: info
+
+--- 
+spring:
+  profiles: production
+  devtools: 
+    livereload:
+      enabled: true
+  
+  datasource:
+    jndiName: java:comp/env/jdbc/forum
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physicalStrategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        showSql: false
+        use-sql-comments: false
+        format-sql: false
+  data:
+    rest:
+      base-path: /
+      default-page-size: 10
+logging:
+  level: 
+    com:
+      github:
+        andersonzanichelli: error
+server:
+  port: 0
+  
+  
